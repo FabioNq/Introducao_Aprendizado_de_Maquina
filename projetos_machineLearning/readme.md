@@ -63,25 +63,9 @@ O projeto também realiza uma comparação da acurácia obtida no conjunto de te
 
 ---
 
-# 2. Bibliotecas utilizadas
+# Bibliotecas utilizadas
 
 As principais bibliotecas utilizadas no projeto são:
-
-```python
-import pandas as pd
-import numpy as np
-import itertools
-
-from scipy.spatial.distance import euclidean
-
-from sklearn.model_selection import train_test_split
-from sklearn.metrics import accuracy_score
-
-import matplotlib.pyplot as plt
-import seaborn as sns
-```
-
-### Principais funções
 
 * **Pandas:** manipulação do DataFrame.
 * **NumPy:** operações matemáticas e manipulação de arrays.
@@ -92,7 +76,7 @@ import seaborn as sns
 
 ---
 
-# 3. Leitura dos dados
+# Leitura dos dados
 
 O dataset é carregado utilizando o Pandas:
 
@@ -123,7 +107,7 @@ A variável `Class` representa a classe da amostra.
 
 ---
 
-# 4. Limpeza dos valores da coluna Bare_nuclei
+# Limpeza dos valores da coluna Bare_nuclei
 
 A coluna `Bare_nuclei` possui alguns valores representados pelo caractere `?`.
 
@@ -157,7 +141,7 @@ Dessa forma:
 
 ---
 
-# 5. Separação entre variáveis X e y
+# Separação entre variáveis X e y
 
 As variáveis utilizadas para realizar a previsão são separadas da variável que representa a classe.
 
@@ -197,7 +181,7 @@ y → classe da célula
 
 ---
 
-# 6. Separação entre treino e teste
+# Separação entre treino e teste
 
 Os dados são divididos utilizando `train_test_split()`:
 
@@ -250,7 +234,7 @@ permite reproduzir a mesma divisão dos dados em diferentes execuções.
 
 ---
 
-# 7. Conversão das variáveis para NumPy
+# Conversão das variáveis para NumPy
 
 Depois da separação dos dados, os DataFrames e Series são convertidos para arrays NumPy:
 
@@ -290,7 +274,7 @@ Ou seja, cada amostra possui **9 características**.
 
 ---
 
-# 8. Criação dos vetores médios
+# Criação dos vetores médios
 
 Nesta etapa é calculado o **vetor médio de cada classe**.
 
@@ -349,7 +333,7 @@ Maligno → vetor médio
 
 ---
 
-# 9. Classificação utilizando distância Euclidiana
+# Classificação utilizando distância Euclidiana
 
 Depois de calcular os centróides, cada observação do conjunto de teste é comparada com os vetores médios das classes.
 
@@ -402,7 +386,7 @@ Nova amostra
 
 ---
 
-# 10. Treinamento
+# Treinamento
 
 Nesta abordagem, o "treinamento" consiste em utilizar os dados de `X_train` para calcular o vetor médio de cada classe.
 
@@ -419,7 +403,7 @@ Isso é importante porque o conjunto de teste deve ser utilizado para verificar 
 
 ---
 
-# 11. Teste
+# Teste
 
 Após a criação dos centróides, os dados de `X_test` são utilizados para realizar as previsões.
 
@@ -450,7 +434,7 @@ predictions == y_test
 
 ---
 
-# 12. Cálculo da acurácia
+# Cálculo da acurácia
 
 A acurácia representa a proporção de previsões que foram classificadas corretamente.
 
@@ -488,76 +472,7 @@ print(f"Acurácia Total: {overall_accuracy:.2f}%")
 
 ---
 
-# 13. Acurácia por classe
-
-Além da acurácia geral, o código também calcula a acurácia separadamente para cada classe:
-
-```python
-for class_name in y.unique():
-```
-
-São consideradas as classes:
-
-```text
-Benigno
-Maligno
-```
-
-Para cada classe são identificadas as previsões corretas e calculada a porcentagem de acerto.
-
-O resultado é apresentado no formato:
-
-```text
-Acurácia por Classe:
-
-Benigno: XX.XX%
-Maligno: XX.XX%
-```
-
----
-
-# 14. Visualização dos centróides
-
-O projeto também possui uma função para gerar gráficos de dispersão:
-
-```python
-plot_Breast_cancer_scatter_with_centroids(
-    df,
-    df['Class'],
-    X.columns,
-    colors,
-    centroids_array
-)
-```
-
-A função cria uma grade com:
-
-```python
-fig, axes = plt.subplots(
-    2,
-    3,
-    figsize=(15, 10)
-)
-```
-
-São utilizados gráficos de dispersão para representar diferentes combinações de características.
-
-Os pontos representam as amostras:
-
-```text
-● → amostras benignas
-● → amostras malignas
-```
-
-Os centróides são representados por marcadores em formato de diamante:
-
-```python
-marker='D'
-```
-
----
-
-# 15. Gráfico do centróide médio
+# Gráfico do centróide médio
 
 Um dos gráficos importantes para análise é a relação entre:
 
@@ -570,95 +485,30 @@ e outra característica do dataset.
 O centróide médio de cada classe é representado no gráfico junto com as observações.
 
 
-![Gráfico dos centróides](../imagens/'Centroid_Medio_dispersao.png')
+<img src="https://github.com/FabioNq/Introducao_Aprendizado_de_Maquina/blob/main/projetos_machineLearning/imagens/Centroid_Medio_dispersao.png" alt="Gráfico dos centróides" heigth="1500" width="1000">
 
-<img src="../imagens/centroides.png" alt="Gráfico dos centróides" width="800">
 
-O gráfico permite visualizar a posição média das classes no espaço das características utilizadas.
+O gráfico permite visualizar a posição média das classes no espaço das características utilizadas, foi utilizada a variavel Uniformity_of_cell_size pois ela influencia bastante nos resultados dos testes, como mostra o gráfico.
 
 O centróide representa uma espécie de **ponto central da classe**, calculado a partir da média das características das amostras utilizadas no treinamento.
 
 ---
 
-# 16. Resultados
-
-## Acurácia do método baseado em distância Euclidiana
-
-A classificação das amostras do conjunto de teste é realizada comparando cada amostra com os centróides das classes.
-
-O resultado final deve ser registrado abaixo:
-
-| Conjunto    |   Acurácia |
-| ----------- | ---------: |
-| Treinamento |          — |
-| Teste       | **XX.XX%** |
-
-> **Observação:** o código apresentado calcula explicitamente a acurácia do classificador de centróides no conjunto de teste. Ele não calcula uma acurácia de treinamento para esse método da mesma forma; portanto, o valor de treinamento não deve ser preenchido sem executar uma avaliação específica sobre `X_train`.
-
 ### Resultado do teste
 
 ```text
-Acurácia Total: XX.XX%
+Acurácia Total: 96.35%
 ```
 
 ### Acurácia por classe
 
 ```text
-Benigno: XX.XX%
-Maligno: XX.XX%
+Benigno: 95.51%
+Maligno: 97.92%
 ```
 
----
 
-# 17. Resumo do fluxo do projeto
-
-O processo completo pode ser resumido da seguinte forma:
-
-```text
-Leitura do Dataset
-       │
-       ↓
-Tratamento da coluna Bare_nuclei
-       │
-       ↓
-Conversão dos valores para numérico
-       │
-       ↓
-Separação X e y
-       │
-       ↓
-Divisão dos dados
-80% Treino / 20% Teste
-       │
-       ├───────────────┐
-       ↓               ↓
-   X_train           X_test
-       │               │
-       ↓               │
-Cálculo dos            │
-centróides             │
-       │               │
-       └───────┐       │
-               ↓       ↓
-        Distância Euclidiana
-               │
-               ↓
-        Classe mais próxima
-               │
-               ↓
-            Previsão
-               │
-               ↓
-          Comparação
-        previsão × real
-               │
-               ↓
-           Acurácia
-```
-
----
-
-# 18. Conclusão
+# Conclusão
 
 O projeto demonstra uma abordagem simples de classificação baseada em **centróides**.
 
@@ -679,6 +529,13 @@ O fluxo utilizado foi:
 
 O projeto permite visualizar de forma prática como **distância, média, centróide e classificação** podem ser utilizados conjuntamente para resolver um problema de classificação.
 
+# Extra Estudo 
+
+Foi realizado o mesmo treinamento utilizando o Algoritmo de machine Learning Arvore de decisao como modelo de classificação e o resultado é bastante interessante pois a arvore começa a se dividir a partir da variavel Uniformity_of_cell_size sendo como principal ponto de partida para definir se uma pessoa tem um tumor maligno ou benigo, segue a imagem a seguir : 
+
+
+
+<img src="https://github.com/FabioNq/Introducao_Aprendizado_de_Maquina/blob/main/projetos_machineLearning/imagens/Decision_tree_Classifier.png" alt="Gráfico dos centróides" heigth="1500" width="1000">
 
 
 
