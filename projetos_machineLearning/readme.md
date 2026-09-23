@@ -569,11 +569,10 @@ e outra característica do dataset.
 
 O centróide médio de cada classe é representado no gráfico junto com as observações.
 
-### Espaço para o gráfico
 
-> **Inserir aqui a imagem do gráfico contendo os centróides médios das classes Benigno e Maligno.**
+![Gráfico dos centróides](../imagens/'Centroid_Medio_dispersao.png')
 
-![Gráfico dos centróides](imagens/'Centroid_Medio_dispersao.png')
+<img src="../imagens/centroides.png" alt="Gráfico dos centróides" width="800">
 
 O gráfico permite visualizar a posição média das classes no espaço das características utilizadas.
 
